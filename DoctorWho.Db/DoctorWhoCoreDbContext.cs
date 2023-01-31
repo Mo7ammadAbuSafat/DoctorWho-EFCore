@@ -172,6 +172,8 @@ namespace DoctorWho.Db
                 new EnemyEpisode { Id = 8, EnemyId = 2, EpisodeId = 1, },
                 new EnemyEpisode { Id = 9, EnemyId = 1, EpisodeId = 3, }
                 );
+
+            modelBuilder.Entity<ViewEpisodes>().HasNoKey().ToView("viewEpisodes");
         }
 
         public DbSet<Author> authors { get; set; }
@@ -181,6 +183,7 @@ namespace DoctorWho.Db
         public DbSet<Enemy> enemys { get; set; }
         public DbSet<CompanionEpisode> episodeCompanions { get; set; }
         public DbSet<EnemyEpisode> episodeEnemies { get; set; }
+        public DbSet<ViewEpisodes> viewEpisodes { get; set; }
 
     }
 }

@@ -36,7 +36,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("authors");
+                    b.ToTable("authors", (string)null);
 
                     b.HasData(
                         new
@@ -84,7 +84,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("companions");
+                    b.ToTable("companions", (string)null);
 
                     b.HasData(
                         new
@@ -139,7 +139,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasIndex("EpisodeId");
 
-                    b.ToTable("episodeCompanions");
+                    b.ToTable("episodeCompanions", (string)null);
 
                     b.HasData(
                         new
@@ -200,7 +200,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("doctors");
+                    b.ToTable("doctors", (string)null);
 
                     b.HasData(
                         new
@@ -268,7 +268,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("enemys");
+                    b.ToTable("enemys", (string)null);
 
                     b.HasData(
                         new
@@ -323,7 +323,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasIndex("EpisodeId");
 
-                    b.ToTable("episodeEnemies");
+                    b.ToTable("episodeEnemies", (string)null);
 
                     b.HasData(
                         new
@@ -423,7 +423,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("episodes");
+                    b.ToTable("episodes", (string)null);
 
                     b.HasData(
                         new
