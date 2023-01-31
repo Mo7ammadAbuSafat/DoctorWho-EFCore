@@ -1,12 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DoctorWho.Db.Models;
+using DoctorWho.Db.Services;
 
 namespace DoctorWho.Db.Repositories
 {
-    internal class DoctorRepository
+    public class DoctorRepository
     {
+        private DoctorWhoCoreDbContext context;
+        public CRUDoperaations<Doctor> CRUD { get; set; }
+
+        public DoctorRepository(DoctorWhoCoreDbContext context)
+        {
+            this.context = context;
+            CRUD = new CRUDoperaations<Doctor>(context);
+        }
+
+        public List<Doctor> GetAllDoctors()
+        {
+            return context.doctors.ToList();
+        }
+
+        public Doctor? GetDoctorById(int id)
+        {
+            return context.doctors.Find(id);
+        }
     }
 }
