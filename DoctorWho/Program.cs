@@ -1,10 +1,16 @@
 ﻿using DoctorWho.Db;
 using DoctorWho.Db.Services;
 
-using (var context = new DoctorWhoCoreDbContext())
-{
-    var service = new GeneralServices(context);
+var context = new DoctorWhoCoreDbContext();
 
-    service.AddEnemyToEpisode(4, 1);
+GeneralServices m = new GeneralServices(context);
 
-}
+m.CallSPSammarizeEpisodes();
+
+
+
+
+
+
+
+

@@ -174,6 +174,12 @@ namespace DoctorWho.Db
                 );
 
             modelBuilder.Entity<ViewEpisodes>().HasNoKey().ToView("viewEpisodes");
+
+            modelBuilder.HasDbFunction(typeof(DoctorWhoCoreDbContext).GetMethod(nameof(FnCompanions), new[] { typeof(int) }))
+            .HasName("fnCompanions");
+
+            modelBuilder.HasDbFunction(typeof(DoctorWhoCoreDbContext).GetMethod(nameof(FnEnemies), new[] { typeof(int) }))
+            .HasName("fnEnemies");
         }
 
         public DbSet<Author> authors { get; set; }
@@ -184,6 +190,10 @@ namespace DoctorWho.Db
         public DbSet<CompanionEpisode> episodeCompanions { get; set; }
         public DbSet<EnemyEpisode> episodeEnemies { get; set; }
         public DbSet<ViewEpisodes> viewEpisodes { get; set; }
+
+        public string FnCompanions(int EpisodeId) => throw new NotSupportedException();
+
+        public string FnEnemies(int EpisodeId) => throw new NotSupportedException();
 
     }
 }
