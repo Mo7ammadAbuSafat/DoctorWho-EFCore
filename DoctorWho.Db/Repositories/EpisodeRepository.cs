@@ -1,64 +1,39 @@
-﻿using DoctorWho.Db.Models;
-using DoctorWho.Db.Services;
+﻿using DoctorWho.Db.DbContexts;
+using DoctorWho.Db.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorWho.Db.Repositories
 {
-    public class EpisodeRepository
+    public class EpisodeRepository : ICrudRepository<Episode>, IEpisodeRepository
     {
-        private DoctorWhoCoreDbContext context;
-        public CRUDoperaations<Episode> CRUD { get; set; }
+        public EpisodeRepository(DoctorWhoCoreDbContext context) : base(context) { }
 
-        public EpisodeRepository(DoctorWhoCoreDbContext context)
+        public async Task<List<Episode>> GetAllEpisodesAsync()
         {
-            this.context = context;
-            CRUD = new CRUDoperaations<Episode>(context);
+            return await context.episodes.ToListAsync();
         }
 
-        public List<Episode> GetAllEpisodes()
+        public async Task<Episode>? GetEpisodeByIdAsync(int id)
         {
-            return context.episodes.ToList();
+            return await context.episodes.FindAsync(id);
         }
 
-        public Episode? GetEpisodeById(int id)
+        public async Task AddEnemyToEpisodeAsync(Enemy enemy, Episode episode)
         {
-            return context.episodes.Find(id);
-        }
-
-        public void AddEnemyToEpisode(Enemy enemy, Episode episode)
-        {
-            AddEnemyToEpisode(enemy.Id, episode.Id);
-        }
-
-        public void AddEnemyToEpisode(int enemyId, int episodeId)
-        {
-            if (context.enemys.Find(enemyId) != null && context.episodes.Find(episodeId) != null)
+            await context.Set<EnemyEpisode>().AddAsync(new EnemyEpisode()
             {
-                context.Set<EnemyEpisode>().Add(new EnemyEpisode()
-                {
-                    EnemyId = enemyId,
-                    EpisodeId = episodeId
-                });
-                context.SaveChanges();
-            }
-
+                enemy = enemy,
+                episode = episode
+            });
         }
 
-        public void AddCompanionToEpisode(Companion companion, Episode episode)
+        public async Task AddCompanionToEpisodeAsync(Companion companion, Episode episode)
         {
-            AddCompanionToEpisode(companion.Id, episode.Id);
-        }
-
-        public void AddCompanionToEpisode(int companionId, int episodeId)
-        {
-            if (context.companions.Find(companionId) != null && context.episodes.Find(episodeId) != null)
+            await context.Set<CompanionEpisode>().AddAsync(new CompanionEpisode()
             {
-                context.Set<CompanionEpisode>().Add(new CompanionEpisode()
-                {
-                    CompanionId = companionId,
-                    EpisodeId = episodeId
-                });
-                context.SaveChanges();
-            }
+                companion = companion,
+                episode = episode
+            });
         }
     }
 }

@@ -1,27 +1,21 @@
-﻿using DoctorWho.Db.Models;
-using DoctorWho.Db.Services;
+﻿using DoctorWho.Db.DbContexts;
+using DoctorWho.Db.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorWho.Db.Repositories
 {
-    public class CompanionRepository
+    public class CompanionRepository : ICrudRepository<Companion>, ICompanionRepository
     {
-        private DoctorWhoCoreDbContext context;
-        public CRUDoperaations<Companion> CRUD { get; set; }
+        public CompanionRepository(DoctorWhoCoreDbContext context) : base(context) { }
 
-        public CompanionRepository(DoctorWhoCoreDbContext context)
+        public async Task<List<Companion>> GetAllCompanionsAsync()
         {
-            this.context = context;
-            CRUD = new CRUDoperaations<Companion>(context);
+            return await context.companions.ToListAsync();
         }
 
-        public List<Companion> GetAllCompanions()
+        public async Task<Companion>? GetCompanionById(int id)
         {
-            return context.companions.ToList();
-        }
-
-        public Companion? GetCompanionById(int id)
-        {
-            return context.companions.Find(id);
+            return await context.companions.FindAsync(id);
         }
     }
 }

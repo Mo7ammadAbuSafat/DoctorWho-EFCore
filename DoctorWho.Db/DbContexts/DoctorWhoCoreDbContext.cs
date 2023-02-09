@@ -1,7 +1,7 @@
 ﻿using DoctorWho.Db.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DoctorWho.Db
+namespace DoctorWho.Db.DbContexts
 {
     public class DoctorWhoCoreDbContext : DbContext
     {
