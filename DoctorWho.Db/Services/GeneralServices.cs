@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DoctorWho.Db.DbContexts;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace DoctorWho.Db.Services
@@ -50,7 +51,6 @@ namespace DoctorWho.Db.Services
             {
                 while (reader.Read())
                 {
-
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
 

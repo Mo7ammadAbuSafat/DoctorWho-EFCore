@@ -1,18 +1,13 @@
-﻿using DoctorWho.Db.Models;
-using DoctorWho.Db.Services;
+﻿using DoctorWho.Db.DbContexts;
+using DoctorWho.Db.Models;
 
 namespace DoctorWho.Db.Repositories
 {
-    public class AuthorRepository
+    public class AuthorRepository : ICrudRepository<Author>, IAuthorRepository
     {
         private DoctorWhoCoreDbContext context;
-        public CRUDoperaations<Author> CRUD { get; set; }
 
-        public AuthorRepository(DoctorWhoCoreDbContext context)
-        {
-            this.context = context;
-            CRUD = new CRUDoperaations<Author>(context);
-        }
+        public AuthorRepository(DoctorWhoCoreDbContext context) : base(context) { }
 
         public List<Author> GetAllAuthors()
         {
